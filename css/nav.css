@@ -282,12 +282,29 @@ input::-webkit-input-placeholder{
     transition: all 0.3s ease;
 }
 
-.xe-comment-entry img {
+.xe-comment-entry img, .xe-comment-entry .xe-user-img {
     float: left;
     display: block;
     margin-right: 10px;
 	border-radius: 50px;
 }
+.xe-user-img{
+	height: 32px; 
+	width: 32px; 
+	display: inline-block; 
+	vertical-align: top;
+}
+.xe-user-img span{
+	display: block; 
+	border-radius: 50%;
+	background: #238ff9;
+	color: #FFFFFF; 
+	height: 32px; 
+	line-height: 32px; 
+	text-align: center;
+	font-size: 16px;
+}
+
 
 .xe-comment p {
     margin-bottom: 0px;
@@ -298,6 +315,8 @@ input::-webkit-input-placeholder{
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+	font-size: 15px;
+    color: #000;
 }
 .overflowClip_2 {
     overflow: hidden;

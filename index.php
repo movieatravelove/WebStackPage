@@ -81,15 +81,19 @@ $this->need('header.php');
 	<?php if($this->options->isLink == '1'): ?>
 	<div class="xe-widget xe-conversations box2 label-info" onclick="window.open('<?php echo $posts->fields->url;?>', '_blank')" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="<?php echo $posts->fields->url;?>">
     <div class="xe-comment-entry">
-          <a class="xe-user-img">
-            <img src="<?php echo $posts->fields->logo;?>" class="img-circle" width="32">
-          </a>
-	<div class="xe-comment">
-          <a href="#" class="xe-user-name overflowClip_1">
-              <strong><?php $posts->title(); ?></strong>
-          </a>
-            <p class="overflowClip_2"><?php echo $posts->fields->text;?></p> 
-     </div>
+		<div class="xe-user-img">
+			<?php if($posts->fields->logo == ''): ?>
+			<span><?php $posts->title(1,'') ?></span>
+			<?php else: ?>
+			<img src="<?php echo $posts->fields->logo;?>" class="img-circle" width="32">
+			<?php endif; ?>
+		</div>
+		<div class="xe-comment" style="display: flow-root;">
+			<a href="#" class="xe-user-name overflowClip_1">
+			  <strong><?php $posts->title(); ?></strong>
+			</a>
+			<p class="overflowClip_2"><?php echo $posts->fields->text;?></p> 
+		 </div>
      </div>
      </div>
      <?php endif; ?>
@@ -369,7 +373,7 @@ $this->need('header.php');
 		</li> 
 		 <li class="fk_service_box fk_service_qr">
 			<div class="fk_service_qr_cont"> <span class="fk_service_triangle"></span>
-				<div class="fk_service_qrimg"> <span class="fk_service_qrimg_site"></span> 微信扫一扫关注 </div>
+				<div class="fk_service_qrimg"> <span class="fk_service_qrimg_site"></span> 微信扫一扫 </div>
 				<div class="fk_service_qrtext"><span><?php $this->options->fk_zmki_gzhtext(); ?></span></div>
 			</div>
 		</li>

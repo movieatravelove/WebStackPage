@@ -207,6 +207,9 @@ EOT;
     $Biglogo = new Typecho_Widget_Helper_Form_Element_Text('Biglogo', NULL, '/usr/themes/WebStack/images/logo@2x.png', _t('大LOGO地址(必填)'), _t('大logo地址，尺寸178*40'));
     $form->addInput($Biglogo);
     echo '<svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-set"></use></svg> <b>提示：主题设置选择后回车可快捷保存</b><hr>';
+	 // 默认网站icon
+    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, '/usr/themes/WebStack/images/logo.png', _t('默认网站icon(必填)'), _t('大logo地址，尺寸178*40'));
+    $form->addInput($logo);
     // 手机端每行显示数量
     $zmki_wapsl = new Typecho_Widget_Helper_Form_Element_Radio('zmki_wapsl', array('0' => _t('单栏'), '1' => _t('双栏'), '2' => _t('三栏')), '0', _t('<svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> 手机端栏目数量'), _t("选择相应的栏目数量,手机端每行将显示不同数量的布局。此功能可避免页面过于庸长，默认单栏，推荐双栏显示 <br>注意：如调整失效，请刷新请浏览器缓存"));
     $form->addInput($zmki_wapsl);
@@ -293,7 +296,7 @@ EOT;
     $zmki_time = new Typecho_Widget_Helper_Form_Element_Text('zmki_time', NULL, '1/1/2019 11:13:14', _t('网站运行时间'), _t('默认: 1/1/2019 11:13:14  请按照前边的实例按格式填写创建时间，分别是月/日/年 时:分:秒 '));
     $form->addInput($zmki_time);
     // 统计代码
-    $zmki_tongji = new Typecho_Widget_Helper_Form_Element_Text('zmki_tongji', NULL, ' ', _t('统计代码'), _t('body标签内，请放入CNZZ或百度统计代码'));
+    $zmki_tongji = new Typecho_Widget_Helper_Form_Element_Text('zmki_tongji', NULL, ' ', _t('统计代码11'), _t('body标签内，请放入CNZZ或百度统计代码'));
     $form->addInput($zmki_tongji);
     // 底部版权
     $zmki_r = new Typecho_Widget_Helper_Form_Element_Text('zmki_r', NULL, 'ZMKi', _t('网站底部版权'), _t('V0.4.3已新增自定义底部版权，请保留前方作者链接。谢谢！默认 ZMKI'));
@@ -301,6 +304,8 @@ EOT;
     // 友情链接
     $zmki_footer_links = new Typecho_Widget_Helper_Form_Element_Radio('zmki_footer_links', array('1' => _t('禁用'), '0' => _t('启用')), '1', _t('<svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-user-girl"></use></svg>  底部友情链接 <svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-user-boy"></use></svg>'), _t('是否开启底部友情链接, 如开启必须安装插件 否则首页报错。不使用关闭即可 插件下载:<a href="https://cdn.zmki.cn/typecho/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5%E6%8F%92%E4%BB%B6.zip">点击下载配套插件</a>'));
     $form->addInput($zmki_footer_links);
+    
+
 }
 //输出导航
 function themeFields($layout) {

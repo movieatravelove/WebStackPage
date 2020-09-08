@@ -22,8 +22,8 @@
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1627571_5r5ttgth8yq.css"> 
   <script src="https://at.alicdn.com/t/font_1627571_5r5ttgth8yq.js"></script>
   <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/icon.png">  
+  <link rel="shortcut icon" href="<?php echo $this->options->logo;?>">
+  <link rel="apple-touch-icon" href="<?php echo $this->options->logo;?>">  
   <?php $this->header(); ?>
  <!--* @version 4.0 _zmki0.7.19 -->
 </head> 
