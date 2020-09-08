@@ -207,8 +207,8 @@ EOT;
     $Biglogo = new Typecho_Widget_Helper_Form_Element_Text('Biglogo', NULL, '/usr/themes/WebStack/images/logo@2x.png', _t('大LOGO地址(必填)'), _t('大logo地址，尺寸178*40'));
     $form->addInput($Biglogo);
     echo '<svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-set"></use></svg> <b>提示：主题设置选择后回车可快捷保存</b><hr>';
-	 // 默认网站icon
-    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, '/usr/themes/WebStack/images/logo.png', _t('默认网站icon(必填)'), _t('大logo地址，尺寸178*40'));
+	 // 网站icon
+    $logo = new Typecho_Widget_Helper_Form_Element_Text('logo', NULL, '/usr/themes/WebStack/images/logo.png', _t('网站icon(必填)'), _t('网站icon地址'));
     $form->addInput($logo);
     // 手机端每行显示数量
     $zmki_wapsl = new Typecho_Widget_Helper_Form_Element_Radio('zmki_wapsl', array('0' => _t('单栏'), '1' => _t('双栏'), '2' => _t('三栏')), '0', _t('<svg  class="icon zmki_aliico" aria-hidden="true"><use xlink:href="#icon-phone"></use></svg> 手机端栏目数量'), _t("选择相应的栏目数量,手机端每行将显示不同数量的布局。此功能可避免页面过于庸长，默认单栏，推荐双栏显示 <br>注意：如调整失效，请刷新请浏览器缓存"));
