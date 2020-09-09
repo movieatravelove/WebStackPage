@@ -1,155 +1,124 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
-<div id="comments">
-    <?php $this->comments()->to($comments); ?>
-   
-	<!--添加新评论-->
-    <div id="<?php $this->respondId(); ?>" class="respond">
-        <div class="cancel-comment-reply">
-        <?php $comments->cancelReply(); ?>
-        </div>	
-    	<h3 id="response">添加新评论</h3>
-    	<form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form">
-            <?php if($this->user->hasLogin()): ?>
-    		<p><?php _e('登录身份: '); ?><a href="<?php $this->options->profileUrl(); ?>"><?php $this->user->screenName(); ?></a>. <a href="<?php $this->options->logoutUrl(); ?>" title="Logout"><?php _e('退出'); ?> &raquo;</a></p>
-            <?php else: ?>
+<link rel="stylesheet" href="<?php $this->options->themeUrl('css/comments.css'); ?>">
+<link rel="stylesheet" href="<?php $this->options->themeUrl('lib/OwO/OwO.min.css'); ?>">
+<?php 
+function threadedComments($comments, $options) {
+    $commentClass = '';
+    if ($comments->authorId) {
+        if ($comments->authorId == $comments->ownerId) {
+            $commentClass .= ' comment-by-author';
+        } else {
+            $commentClass .= ' comment-by-user';
+        }
+    }
+
+    $commentLevelClass = $comments->levels > 0 ? ' comment-child' : ' comment-parent';
+?>
+<?php
+            $host = 'https://gravatar.loli.net'; 
+            $url = '/avatar/'; 
+            $rating = Helper::options()->commentsAvatarRating;
+            $hash = md5(strtolower($comments->mail));
+			$email = strtolower($comments->mail);
+			$qq=str_replace('@qq.com','',$email);
+			if(strstr($email,"qq.com") && is_numeric($qq) && strlen($qq) < 11 && strlen($qq) > 4)
+			{
+			$avatar = '//q3.qlogo.cn/g?b=qq&nk='.$qq.'&s=100';
+			}else{
+			  $avatar = $host . $url . $hash . '?s=50' . '&r=' . $rating . '&d=mm';
+			}       
+            ?>
+	
+		<div class="vcard" id="<?php $comments->theId(); ?>">
+			<img class="vimg" src="<?php echo $avatar ?>">
+			<div class="vh">
+				<div class="vhead">
+					<span class="vnick"><?php $comments->author(); ?></span>
+				</div>
+				<div class="vmeta" >
+					<span class="vtime"><?php $comments->dateWord(); ?></span>
+					<span class="vat comment-reply cp-<?php $comments->theId(); ?> text-muted comment-reply-link"><?php $comments->reply('回复'); ?></span><span id="vat cancel-comment-reply" class="cancel-comment-reply cl-<?php $comments->theId(); ?> text-muted comment-reply-link" style="display:none" ><?php $comments->cancelReply('取消'); ?></span>
+				</div>
+				<div class="vcontent">
+					<?php $comments->content(); ?>
+				</div>
+				
+				
+			</div>
+		</div>
+		<?php if ($comments->children) { ?>
+		<?php $comments->threadedComments($options); ?>
+		<?php } ?>
+	
+<?php } ?>
+<?php $this->comments()->to($comments); ?>
+<?php if($this->allow('comment')): ?>	
+<div class="comments v" id="comments">
+<h3 class="comment-title">发表评论</h3>
+<div class="comments-talk v" id="<?php $this->respondId(); ?>">
+<form method="post" action="<?php $this->commentUrl() ?>" id="comment-form">
+	<?php if($this->user->hasLogin()): ?>
+	<?php _e('登录身份: '); ?><h5><a href="<?php $this->options->profileUrl(); ?>"><?php $this->user->screenName(); ?></a>. <a href="<?php $this->options->logoutUrl(); ?>" title="Logout"><?php _e('退出'); ?> &raquo;</a></h5>
+
+		<div class="vwrap">
+		<?php else: ?>
+		<div class="vwrap">
+		<div class="vheader item3">
+			<input name="author" placeholder="昵称" class="vnick vinput" type="text" value="<?php $this->remember('author'); ?>" required><input name="mail" placeholder="邮箱" class="vmail vinput" type="email" value="<?php $this->remember('mail'); ?>"<?php if ($this->options->commentsRequireMail): ?> required<?php endif; ?>><input name="url" placeholder="网址(http://)" class="vlink vinput" type="url" value="<?php $this->remember('url'); ?>"<?php if ($this->options->commentsRequireURL): ?> required<?php endif; ?>>
+		</div>
+		<?php endif; ?>
+		<div class="vedit">
+			<textarea  name="text" id="veditor" class="OwO-textarea veditor vinput" onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('misubmit').click();return false};" placeholder="说点什么?"><?php $this->remember('text'); ?></textarea>
+			<div class="vrow"><div class="vcol vcol-60 status-bar"></div><div class="vcol vcol-40 vctrl text-right"><div title="表情" class="OwO"></div></div></div>
+		</div>
+		<div class="vcontrol">
+			<div class="col col-20" title="Markdown is supported">
+				<a href="https://segmentfault.com/markdown" target="_blank"><svg class="markdown" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"></path></svg></a>
+			</div>
+			<div class="col col-80 text-right">
+			<button type="submit" title="Cmd|Ctrl+Enter" class="vsubmit vbtn" id="misubmit">评论</button>
+			<?php $security = $this->widget('Widget_Security'); ?>
 			
-			
-            <ul class="compost">
-    		<li>
-    			<input type="text" name="author" id="author" class="text" placeholder="<?php _e('昵称（必填）'); ?>" value="<?php $this->remember('author'); ?>" required />
-    		</li>
-    		<li>
-    			<input type="email" name="mail" id="mail" class="text" placeholder="<?php _e('邮箱（必填）'); ?>" value="<?php $this->remember('mail'); ?>"<?php if ($this->options->commentsRequireMail): ?> required<?php endif; ?> />
-    		</li>
-    		<li>
-    			<input type="url" name="url" id="url" class="text" placeholder="<?php _e('网址（选填）'); ?>" value="<?php $this->remember('url'); ?>"<?php if ($this->options->commentsRequireURL): ?> required<?php endif; ?> />
-    		</li>
-            </ul>
-            <?php endif; ?>
-    		<div>
-                <textarea rows="8" cols="50" name="text" id="textarea" placeholder="<?php _e('说点什么吧'); ?>" class="textarea" required><?php $this->remember('text'); ?></textarea>
-            </div>
-    		<p>
-                <button type="submit" class="submit"><?php _e('提交评论'); ?></button>
-            </p>
-    	</form>		
+			</div>
+		</div>
+		
+		<div style="display:none;" class="vmark">
+		</div>
 	</div>
-
-
-	<!--评论列表-->
-	<?php if ($comments->have()): ?>
-	<h3><?php $this->commentsNum(_t('暂无评论'), _t('仅有 1 条评论'), _t('已有 %d 条评论')); ?></h3>
 	
-	<?php $comments->listComments(); ?>
-
-	<?php $comments->pageNav('&laquo; 前一页', '后一页 &raquo;'); ?>
-	
-	<?php endif; ?>
-
-	<?php if($this->allow('comment')): ?>
-	
+	</form>
+	</div>
+	<?php if($this->commentsNum!=0): ?>
+	<div class="vinfo" style="display:block;">
+		<div class="vcount col">
+			<span class="vnum"><?php $this->commentsNum('%d'); ?></span> 评论
+		</div>
 	</div>
 	<?php else: ?>
-	<!--<h3><?php _e('评论已关闭'); ?></h3>-->
+	<div class="vempty" style="display:block;">快来做第一个评论的人吧~</div>
 	<?php endif; ?>
+	<div class="vlist">
+	<?php if ($comments->have()): ?>
+	<?php $comments->listComments(); ?>
+	<?php endif; ?>
+	</div>
+	<?php $comments->pageNav('<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>',10,'',array('wrapTag' => 'div', 'wrapClass' => 'pagination','itemTag' => '','currentClass' => 'page-number',)); ?>
 	
-
-<style>
-	#comments {
-		padding-top:150px
-	}
-	.respond{
-		margin-top: 30px;
-	}
-	#response{
-		color: #373e4a;
-		font-weight: 600;
-		font-size: 18px;
-		margin-top: 30px;	
-	}
-	.comment-list,.comment-list ol {
-		list-style:none;
-		margin:0;
-		padding:0
-	}
-	.comment-list li {
-		padding:14px;
-		margin-top:10px;
-		border:1px solid #EEE
-	}
-	.comment-list li.comment-level-odd {
-		background:#f6f6f3
-	}
-	.comment-list li.comment-level-even {
-		background:#FFF
-	}
-	.comment-list li.comment-by-author {
-		background:#fff9e8
-	}
-	.comment-list li .comment-reply {
-		text-align:right;
-		font-size:.92857em
-	}
-	.comment-meta a {
-		color:#999;
-		font-size:.92857em
-	}
-	.comment-author {
-		display:block;
-		margin-bottom:3px;
-		color:#444
-	}
-	.comment-author .avatar {
-		float:left;
-		margin-right:10px
-	}
-	.comment-author cite {
-		font-weight:bold;
-		font-style:normal
-	}
-	.comment-list .respond {
-		margin-top:15px;
-		border-top:1px solid #EEE
-	}
-	.respond .cancel-comment-reply {
-		float:right;
-		margin-top:15px;
-		font-size:.92857em
-	}
-	#comment-form label {
-		display:block;
-		margin-bottom:.5em;
-		font-weight:bold
-	}
-	#comment-form .required:after {
-		content:" *";
-		color:#C00
-	}
-	.respond ul {
-		margin:0
-	}
-	.respond .compost {
-		overflow:hidden;
-		padding:10px 0 0
-	}
-	.respond .compost li input {
-		width:160px;
-		height:24px;
-		padding-left:4px;
-		border:1px solid #ddd;
-		color:#666
-	}
-	.respond .compost li {
-		float:left;
-		margin-right:6px;
-		margin-bottom:10px;
-		list-style-type:none
-	}
-	.respond .textarea {
-		width:100%;
-		border:1px solid #ddd
-	}
-	.comment-content {
-		margin:10px 0 0 45px
-	}
-</style>
+</div>
+	<script type="text/javascript">
+function showhidediv(id){var sbtitle=document.getElementById(id);if(sbtitle){if(sbtitle.style.display=='flex'){sbtitle.style.display='none';}else{sbtitle.style.display='flex';}}}
+(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},pom:function(id){return document.getElementsByClassName(id)[0]},iom:function(id,dis){var alist=document.getElementsByClassName(id);if(alist){for(var idx=0;idx<alist.length;idx++){var mya=alist[idx];mya.style.display=dis}}},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom("<?php echo $this->respondId(); ?>"),input=this.dom("comment-parent"),form="form"==response.tagName?response:response.getElementsByTagName("form")[0],textarea=response.getElementsByTagName("textarea")[0];if(null==input){input=this.create("input",{"type":"hidden","name":"parent","id":"comment-parent"});form.appendChild(input)}input.setAttribute("value",coid);if(null==this.dom("comment-form-place-holder")){var holder=this.create("div",{"id":"comment-form-place-holder"});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.iom("comment-reply","");this.pom("cp-"+cid).style.display="none";this.iom("cancel-comment-reply","none");this.pom("cl-"+cid).style.display="";if(null!=textarea&&"text"==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom("<?php echo $this->respondId(); ?>"),holder=this.dom("comment-form-place-holder"),input=this.dom("comment-parent");if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.iom("comment-reply","");this.iom("cancel-comment-reply","none");holder.parentNode.insertBefore(response,holder);return false}}})();
+</script>
+	<script src="<?php $this->options->themeUrl('lib/OwO/OwO.min.js'); ?>"></script>
+	<script type="text/javascript">
+//OwO
+var OwO_winds = new OwO({
+    logo: '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>',
+    container: document.getElementsByClassName('OwO')[0],
+    target: document.getElementsByClassName('OwO-textarea')[0],
+    api: '<?php if ($this->options->Emoji == 'able'): ?><?php $this->options->themeUrl('lib/OwO/OwO.json'); ?><?php else: ?><?php $this->options->themeUrl('lib/OwO/OwOmini.json'); ?><?php endif; ?>',
+    position: 'down',
+    width: '100%',
+    maxHeight: '250px'
+});</script>
+<?php endif; ?>

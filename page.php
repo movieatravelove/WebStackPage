@@ -57,13 +57,16 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 								<?php $this->content(); ?>
 							</blockquote>
 						</div>
-						 <?php $this->need('comments.php'); ?>
 					</div>
 				</div>
+				 
 			</div>
 		</div>
 	</div>
-	<br>
-	<!-- Main Footer -->
- <?php $this->need('footer.php'); ?>
+	<?php $this->need('comments.php'); ?>
+
+<br>
+
+<!-- Main Footer -->
+<?php $this->need('footer.php'); ?>
    
