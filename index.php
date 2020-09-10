@@ -122,13 +122,14 @@ $this->need('header.php');
 <?php endwhile; ?>
 <?php $this->need('footer.php'); ?> 
 <!--仿凡科 右侧悬浮窗 by:zmki   zmki.cn 2020年2月9日17:03:13-->
+
+
 <style>
 	.fk_service_qrimg_site {
     width: 119px;
     height: 119px;
     float: left;
     margin: 12px 12px 5px 12px;
-    /* background: url(https://a-oss.zmki.cn/2019/20190827-5d652476ab305.png) no-repeat -41px -26px; */
     background-image: url(<?php $this->options->fk_zmki_gzhimg(); ?>);
     background-size: 100% 100%;
 	} 

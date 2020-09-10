@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/font-awesome.min.css'); ?>">
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/bootstrap.css'); ?>">
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/xenon-core.css'); ?>">
+  <link rel="stylesheet" href="<?php $this->options->themeUrl('css/xenon-core-night.css'); ?>">
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/xenon-components.css'); ?>">
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/xenon-skins.css'); ?>">
   <link rel="stylesheet" href="<?php $this->options->themeUrl('css/nav.css'); ?>">

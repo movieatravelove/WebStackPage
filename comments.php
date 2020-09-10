@@ -13,7 +13,7 @@ function threadedComments($comments, $options) {
     }
 
     $commentLevelClass = $comments->levels > 0 ? ' comment-child' : ' comment-parent';
-?>
+// ?>
 <?php
             $host = 'https://gravatar.loli.net'; 
             $url = '/avatar/'; 
@@ -58,7 +58,7 @@ function threadedComments($comments, $options) {
 <div class="comments-talk v" id="<?php $this->respondId(); ?>">
 <form method="post" action="<?php $this->commentUrl() ?>" id="comment-form">
 	<?php if($this->user->hasLogin()): ?>
-	<?php _e('登录身份: '); ?><h5><a href="<?php $this->options->profileUrl(); ?>"><?php $this->user->screenName(); ?></a>. <a href="<?php $this->options->logoutUrl(); ?>" title="Logout"><?php _e('退出'); ?> &raquo;</a></h5>
+	<?php _e('登录身份：'); ?><a href="<?php $this->options->profileUrl(); ?>"><?php $this->user->screenName(); ?></a>. <a href="<?php $this->options->logoutUrl(); ?>" title="Logout"><?php _e('退出'); ?> &raquo;</a>
 
 		<div class="vwrap">
 		<?php else: ?>

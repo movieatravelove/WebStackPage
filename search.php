@@ -2,7 +2,7 @@
   <div class="search">
     <div class="search-box">
       <span class="search-icon" style="background: url(<?php $this->options->themeUrl('images/search_icon.png'); ?>) 0px 0px; opacity: 1;"></span>
-      <input type="text" id="txt" class="search-input"  autocomplete="off"  placeholder="请输入关键字，按回车 / Enter 搜索">
+      <input type="text" id="txt" class="search-input"  autocomplete="off"  placeholder="点击LOGO选择搜索引擎，输入关键字，按回车 / Enter 搜索">
       <button class="search-btn" id="search-btn"><i class="fa fa-search"></i></button>
     </div>
     <!-- 搜索热词 -->
@@ -18,7 +18,7 @@
       <ul class="search-engine-list search-engine-list_zmki_ul"> 
       </ul>
     </div>
-    <!--<div class="bt-link"><a href="https://www.k1v.cn/6528.html" target="_blank">福利：【WPS全家桶】WPS政府企业版_合集多版本 无广告带VBA组件。免费下载！</a></div>-->
+    <!--<div class="bt-link"><a href="" target="_blank">公告：总之岁月漫长，然而值得等待。</a></div>-->
    </div>
 </section> 
 <script src="<?php $this->options->themeUrl('js/js/index.min.js'); ?>"></script>

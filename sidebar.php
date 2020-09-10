@@ -4,7 +4,15 @@
                     <!-- logo -->
                     <div class="logo">
                         <a href="<?php $this->options->siteUrl();?>" class="logo-expanded">
+							<!--
                             <img class="logo_size" src="<?php $this->options->Biglogo(); ?>" width="100%" alt="<?php $this->options->IndexName(); ?>" />
+							<img class="logo_size" src="<?php $this->options->logo(); ?>" width="100%" alt="<?php $this->options->title(); ?>" />
+							-->
+							
+							<span>
+								<div class="site_title"><?php $this->options->title() ?></div>
+								<div class="site_url"><?php $this->options->siteUrl(); ?></div>
+							</span>
                         </a>
                     </div>
                     <div class="mobile-menu-toggle visible-xs">
@@ -21,6 +29,7 @@
                              <?php if (empty($children)) { ?>
                                  <li>
                                      <a href="<?php if ($this->is('index')): ?><?php else: ?>/<?php endif; ?>#<?php $categorys->name();?>" class="smooth">
+			
                                         <i class="fa fa-<?php $categorys->slug();?>"></i>
                                         <span class="title"><?php $categorys->name(); ?></span>
                                      </a>

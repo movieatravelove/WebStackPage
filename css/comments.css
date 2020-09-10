@@ -8,8 +8,8 @@
 .comment-title{
 	margin-top: 20px;
     font-weight: 600;
-    font-size: 18px;
-	color: #373e4a !important;
+    font-size: 18px !important;
+	color: #373e4a;
 }
 .comments .comments-talk, .comments .vinfo, .comments .vlist{
 	padding: 0 15px !important;
@@ -20,7 +20,8 @@
 	line-height:2;
 	color:#555;
 	-webkit-transition:all .3s ease;
-	transition:all .3s ease
+	transition:all .3s ease;
+	font-size: 15px;
 }
 .v hr {
 	margin:.825rem 0;
@@ -85,7 +86,7 @@
 	border:none;
 	resize:none;
 	outline:none;
-	padding:10px 5px;
+	padding:0px 15px;
 	max-width:100%;
 	font-size:.775rem
 }
@@ -281,7 +282,7 @@
 .v .veditor {
 	width:100%;
 	min-height:8.75rem;
-	font-size:.875rem;
+	font-size:1.1rem;
 	background:transparent;
 	resize:vertical;
 	-webkit-transition:all .25s ease;
