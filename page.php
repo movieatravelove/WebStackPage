@@ -48,7 +48,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 	<div class="row">
 		<div class="col-md-12" style="margin-top: 20px;">
 			<div class="panel panel-default">
-				<!-- 关于网站 -->
+				<!-- 页面标题 -->
 				<h4 class="text-gray"><?php $this->title() ?></h4>
 				<div class="panel-body">
 					<div class="row">
@@ -59,7 +59,6 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 						</div>
 					</div>
 				</div>
-				 
 			</div>
 		</div>
 	</div>

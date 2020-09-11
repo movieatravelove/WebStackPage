@@ -1746,7 +1746,8 @@ body {
 	-webkit-transition: opacity 100ms ease-in-out;
 	-moz-transition: opacity 100ms ease-in-out;
 	-o-transition: opacity 100ms ease-in-out;
-	transition: opacity 100ms ease-in-out
+	transition: opacity 100ms ease-in-out;
+
 }
 
 .page-container .main-content.is-loading {
@@ -1866,7 +1867,7 @@ body {
 
 .sidebar-menu .logo-env {
 	padding: 19px 45px;
-	border-bottom: 2px solid #3352b1;
+	border-bottom: 2px solid #183ca9d4;
 }
 
 

@@ -316,3 +316,39 @@ function themeFields($layout) {
     $layout->addItem($text);
     $layout->addItem($logo);
 }
+
+function themeInit() {
+	@$comment = spam_protection_pre($comment,$post, $result);//数字验证码
+}
+
+//算术验证评论
+function spam_protection_math(){
+    $num1=1;
+    $num2=rand(1,9);
+    echo "$num1 + $num2 = ";
+    echo "<input type=\"text\" name=\"sum\" class=\"vnick vinput\" value=\"\" size=\"25\" tabindex=\"4\" style=\" width:80px;\" placeholder=\"计算结果\">\n";
+    echo "<input type=\"hidden\" name=\"num1\" value=\"$num1\">\n";
+    echo "<input type=\"hidden\" name=\"num2\" value=\"$num2\">";
+}
+function spam_protection_pre($comment, $post, $result){
+    if(isset($_POST['sum'])){$sum=$_POST['sum'];}
+    switch($sum){
+        case $_POST['num1']+$_POST['num2']:
+        break;
+        case null:
+        throw new Typecho_Widget_Exception(_t('抱歉：请输入验证码','评论失败'));
+        break;
+        default:
+        throw new Typecho_Widget_Exception(_t('抱歉：验证码错误，请返回重试','评论失败'));
+
+	};
+    return $comment;
+}
+
+/**输出作者文章总数，可以指定*/
+function allpostnum($id){
+    $db = Typecho_Db::get();
+    $postnum=$db->fetchRow($db->select(array('COUNT(authorId)'=>'allpostnum'))->from ('table.contents')->where ('table.contents.authorId=?',$id)->where('table.contents.type=?', 'post'));
+    $postnum = $postnum['allpostnum'];
+    return $postnum;
+}

@@ -539,3 +539,16 @@ to {
 	font-size:14px;
 	float:right
 }
+.pagination{
+	margin: 0px auto;
+    display: table;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.pagination a {
+    margin-right: 20px;
+}
+.pagination .page-number {
+    color: #1abc9c !important;
+}
+

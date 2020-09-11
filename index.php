@@ -69,12 +69,16 @@ $this->need('header.php');
 	<?php if($this->options->isSearch == '1'): ?>
     <?php $this->need('search.php'); ?> 
 	<?php endif; ?>
+	
 	<?php Typecho_Widget::widget('Widget_Stat')->to($stat); ?>
+	<div class="site_info">
+		<span>目前已收录 <?php $stat->publishedPostsNum() ?> 个网站，</span>
+		<span>涉及 <?php $stat->categoriesNum() ?> 个分类。</span>
+	</div>
 	<?php $this->widget('Widget_Metas_Category_List')->to($categories); ?>
 	<?php while ($categories->next()): ?>
 	<?php if(count($categories->children) === 0): ?>
 	<?php $this->widget('Widget_Archive@category-' . $categories->mid, 'order=order&pageSize=10000&type=category', 'mid=' . $categories->mid)->to($posts); ?>
-	
 	<h4 class="text-gray"><i class="linecons-tag" style="margin-right: 7px;" id="<?php $categories->name(); ?>"></i><?php $categories->name(); ?></h4>
 	<h5><?php $categories->description(); ?></h5>
 	<div class="row"> 
@@ -125,14 +129,18 @@ $this->need('header.php');
 
 
 <style>
-	.fk_service_qrimg_site {
+.site_info{
+	font-size: 18px;
+    font-weight: 600;
+}
+.fk_service_qrimg_site {
     width: 119px;
     height: 119px;
     float: left;
     margin: 12px 12px 5px 12px;
     background-image: url(<?php $this->options->fk_zmki_gzhimg(); ?>);
     background-size: 100% 100%;
-	} 
+} 
 	
 /*单栏*/
  <?php if($this->options->zmki_pcsl == '0'): ?>  
